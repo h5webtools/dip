@@ -10,6 +10,7 @@ echo "build static"
 cnpm i
 cnpm run build
 
+# copy files
 echo "copy project files"
 cp -vr $workdir $releasedir
 
