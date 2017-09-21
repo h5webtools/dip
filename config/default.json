@@ -1,11 +1,11 @@
 {
-  "port": 7300,
+  "port": 7600,
   "pageSize": 30,
   "routerPrefix": {
     "mock": "/mock",
     "api": "/api"
   },
-  "db": "",
+  "db": "mongodb://localhost/dip",
   "unsplashClientId": "",
   "gravatar": [
     "//img.souche.com/20161230/png/58f22ad636a0f33bad8762688f78d425.png",
