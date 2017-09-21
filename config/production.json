@@ -3,7 +3,7 @@
   "db": "mongodb://mongodb/easy-mock",
   "unsplashClientId": "",
   "jwt": {
-    "secret": ""
+    "secret": "shared-secret"
   },
   "fe": {
     "publicPath": "/dist/",

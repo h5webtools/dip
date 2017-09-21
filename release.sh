@@ -1,5 +1,7 @@
 #!/bin/sh
 
+export DOCKER_HOST=tcp://172.16.1.10:4243
+
 # variables
 basedir=`dirname "$0"`
 workdir=`dirname "$basedir"`
@@ -30,4 +32,4 @@ cd $appDir
 cd ..
 
 echo "docker-compose up"
-sudo /usr/local/bin/docker-compose up
+/usr/local/bin/docker-compose up -d
