@@ -8,15 +8,15 @@ workdir=`dirname "$basedir"`
 appDir="/data1/fe_www/easymock/easy-mock"
 
 # copy project files
-cp -vr "$workdir/build" "$appDir/build"
-cp -vr "$workdir/config" "$appDir/config"
-cp -vr "$workdir/controllers" "$appDir/controllers"
-cp -vr "$workdir/middlewares" "$appDir/middlewares"
-cp -vr "$workdir/models" "$appDir/models"
-cp -vr "$workdir/proxy" "$appDir/proxy"
-cp -vr "$workdir/public" "$appDir/public"
-cp -vr "$workdir/util" "$appDir/util"
-cp -vr "$workdir/views" "$appDir/views"
+cp -vr "$workdir/build" $appDir
+cp -vr "$workdir/config" $appDir
+cp -vr "$workdir/controllers" $appDir
+cp -vr "$workdir/middlewares" $appDir
+cp -vr "$workdir/models" $appDir
+cp -vr "$workdir/proxy" $appDir
+cp -vr "$workdir/public" $appDir
+cp -vr "$workdir/util" $appDir
+cp -vr "$workdir/views" $appDir
 
 cp -v "$workdir/.babelrc" "$appDir/.babelrc"
 cp -v "$workdir/.eslintrc.js" "$appDir/.eslintrc.js"

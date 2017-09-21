@@ -7,7 +7,7 @@
   },
   "fe": {
     "publicPath": "/dist/",
-    "APIPrefix": "http://127.0.0.1:7600/api",
+    "APIPrefix": "http://172.16.1.10:7600/api",
     "uploadAPI": "",
     "storageNamespace": ""
   }
