@@ -31,5 +31,6 @@ echo "entering $appDir"
 cd $appDir
 cd ..
 
+# docker compose
 echo "docker-compose up"
 /usr/local/bin/docker-compose up -d
