@@ -30,4 +30,4 @@ cd $appDir
 cd ..
 
 echo "docker-compose up"
-/usr/local/bin/docker-compose up
+sudo /usr/local/bin/docker-compose up
