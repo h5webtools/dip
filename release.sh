@@ -16,6 +16,7 @@ cp -vr $workdir $releasedir
 
 echo "entering $releasedir"
 cd $releasedir
+cd ..
 
 echo "docker-compose up"
 docker-compose up -d
