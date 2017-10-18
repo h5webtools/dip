@@ -2,14 +2,14 @@
 var path = require('path')
 
 module.exports = {
-  appName: 'DXY API Mocker',
-  docsUrl: 'https://github.com/DXY-F2E/api-mocker/tree/master/docs#api-mocker',
+  appName: 'DIP',
+  docsUrl: 'http://mock.fe.jyb.com',
   build: {
     env: require('./prod.env'),
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/mock/',
+    assetsPublicPath: '/',
     productionSourceMap: false,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
@@ -23,7 +23,7 @@ module.exports = {
     // Set to `true` or `false` to always turn it on or off
     bundleAnalyzerReport: process.env.npm_config_report,
     // 服务端接口的根路径
-    serverRoot: 'f2e.dxy.net/mock-api'
+    serverRoot: 'mock.fe.jyb.com/mock-api'
   },
   dev: {
     env: require('./dev.env'),
@@ -38,6 +38,6 @@ module.exports = {
     // In our experience, they generally work as expected,
     // just be aware of this issue when enabling this option.
     cssSourceMap: false,
-    serverRoot: '172.16.4.28:7001'
+    serverRoot: '127.0.0.1:7001'
   }
 }
