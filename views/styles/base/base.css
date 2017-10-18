@@ -1,7 +1,0 @@
-@import "./var.css";
-
-.em-container {
-  padding: 0 var(--base-padding);
-  max-width: var(--body-width);
-  margin: auto;
-}
