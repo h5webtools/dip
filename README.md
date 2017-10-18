@@ -1,6 +1,6 @@
-# 接口管理系统 - API Mocker
+# 接口管理系统
 
-> API Mocker，不仅仅是Mocker，它致力于解决前后端开发协作过程中出现的各类问题，提高开发效率，对接口做统一管理，同时也能为后续的迭代维护提供更便捷的方式。
+fork [api-mocker](https://github.com/DXY-F2E/api-mocker)
 
 ***
 
@@ -23,8 +23,6 @@ API Mocker提供操作简单但功能丰富的接口编辑，接口约定者能�
 - 支持Json数据逆向生成参数结构
 - 保留一定接口历史记录
 
-![](https://user-gold-cdn.xitu.io/2017/9/15/e4728e628394957924f586517e8d8b1b)
-
 ### Mock数据
 
 API Mocker认为，mock不仅仅体现在返回数据中，mock请求本身也应该符合接口约定。因此，我们提供更加符合业务场景的mock服务。
@@ -38,8 +36,6 @@ API Mocker认为，mock不仅仅体现在返回数据中，mock请求本身也�
 ### 接口文档
 
 API Mocker会根据接口约定自动生成简洁优美、结构清晰的接口文档。同时，可以订阅接口，当接口发生变化时，及时收到邮件通知。
-
-![](https://user-gold-cdn.xitu.io/2017/9/15/bf8a8ab4587aae27ea45047b05de8df7)
 
 ### 接口权限
 
