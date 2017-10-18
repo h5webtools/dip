@@ -6,3 +6,4 @@ db/
 package-lock.json
 server/appveyor.yml
 server/.travis.yml
+release/
