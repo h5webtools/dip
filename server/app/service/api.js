@@ -1,5 +1,8 @@
 module.exports = app => {
   class Api extends app.Service {
+    findByCond (where = {}) {
+      return app.model.api.find(Object.assign({ isDeleted: false }, where))
+    }
     getById (apiId) {
       return app.model.api.findOne({
         _id: apiId,

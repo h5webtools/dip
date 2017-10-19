@@ -1,4 +1,10 @@
+/**
+ * client
+ */
+
 const buildExampleFromSchema = require('mocker-dsl-core/lib/buildExampleFromSchema')
+const pathToRegexp = require('path-to-regexp')
+const util = require('../util')
 
 const sleep = ms => cb => setTimeout(cb, ms)
 
@@ -26,6 +32,99 @@ module.exports = app => {
       delete this.ctx.request.body._apiRealUrl
       delete this.ctx.request.body._apiMethod
       yield this.proxy(_apiRealUrl, _apiMethod)
+    }
+    * mock () {
+      const { groupId } = this.ctx.params
+      const group = yield this.service.group.getById(groupId)
+      const method = this.ctx.method.toLowerCase()
+      const query = this.ctx.request.query
+      const body = this.ctx.request.body
+
+      // 根据URL获取记录
+      let record = yield this.service.api.findByCond({ group: group._id, 'options.method': method })
+      const reqUrl = this.getReqUrl()
+
+      record = record.filter((r) => {
+         // variable
+        let urlCheckResult = true
+        let queryCheckResult = true
+        let bodyCheckResult = true
+
+        // path校验
+        urlCheckResult = this.checkPath(r.options.params.path, r.reqUrl, reqUrl)
+        if (!urlCheckResult) {
+          return false
+        }
+
+        // query校验
+        queryCheckResult = this.checkRequest(r.options.params.query, query)
+        if (!queryCheckResult) {
+          return false
+        }
+
+        // 如果是get请求，不需要对比body
+        if (method !== 'get') {
+          bodyCheckResult = this.checkRequest(r.options.params.body, body)
+        }
+
+        return urlCheckResult && queryCheckResult && bodyCheckResult
+      })
+
+      // 如果没有找到记录
+      if (record.length === 0) {
+        this.fail('没有找到记录')
+        return
+      }
+
+      // 如果找到多条记录
+      if (record.length > 1) {
+        this.fail('找到多条记录')
+        return
+      }
+
+      yield this.handleRequest(record[0])
+    }
+    checkPath (paramsPath, paramsReqUrl, reqUrl) {
+      if (!Array.isArray(paramsPath)) {
+        return true
+      }
+
+      let pathStr = paramsPath.reduce((arr, p) => {
+        if (p.key) {
+          arr.push(`:${p.key}${!p.required ? '?' : ''}`)
+        }
+
+        return arr
+      }, []).join('/')
+
+      if (pathStr) {
+        pathStr = `/${pathStr}`
+      }
+
+      return pathToRegexp(`${paramsReqUrl}${pathStr}`).test(reqUrl)
+    }
+    checkRequest (paramsArr, paramsObj) {
+      // 如果非数组，返回true
+      if (!Array.isArray(paramsArr)) {
+        return true
+      }
+
+      // key必须有值
+      paramsArr = paramsArr.filter(q => !!q.key)
+
+      return paramsArr.every((q) => {
+        // 如果固定值，值不相等，校验失败
+        if (q.fixed && util.convertDataType(q.type, paramsObj[q.key]) !== q.example) {
+          return false
+        }
+
+        // 如果必填，值不存在，校验失败
+        if (q.required && !util.hasOwnProp(paramsObj, q.key)) {
+          return false
+        }
+
+        return true
+      })
     }
     * proxy (url, method) {
       const query = this.ctx.request.url.split('?')[1]
@@ -108,6 +207,10 @@ module.exports = app => {
     * delete () {
       const document = yield this.findApi('delete')
       yield this.handleRequest(document)
+    }
+    getReqUrl () {
+      const pathArr = this.ctx.path.replace(/(^\/|\/$)/, '').split('/')
+      return `/${pathArr.slice(2).join('/')}`
     }
     getPathParams (api) { // 获取RESTful风格Url参数
       const pathParams = {}

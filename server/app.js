@@ -5,7 +5,6 @@ module.exports = app => {
       this.ctx.body = data
     }
     fail (msg) {
-      // 弃用
       this.ctx.body = {
         success: false,
         msg

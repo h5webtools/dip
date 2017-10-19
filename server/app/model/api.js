@@ -32,6 +32,7 @@ module.exports = mongoose => {
       type: String,
       default: Date.now
     },
+    reqUrl: String,
     prodUrl: String,
     devUrl: String,
     options: {
