@@ -22,7 +22,7 @@ module.exports = appInfo => {
     },
     // 发送邮件配置
     transporter: {
-      appName: 'Api Mocker',
+      appName: 'DIP',
       host: 'smtp.qq.com',
       secure: true,
       port: 465,
