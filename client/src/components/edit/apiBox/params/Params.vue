@@ -61,7 +61,8 @@ export default {
       const param = {
         key: null,
         type: 'string',
-        required: true
+        required: true,
+        fixed: false
       }
       this.params.splice(idx + 1, 0, param)
       this.change()

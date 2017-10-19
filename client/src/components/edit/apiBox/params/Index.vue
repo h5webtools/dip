@@ -34,7 +34,8 @@ export default {
         this.params.push({
           key: null,
           type: 'string',
-          required: true
+          required: true,
+          fixed: false
         })
       }
     },

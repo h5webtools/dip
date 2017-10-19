@@ -13,12 +13,13 @@
           v-model="apiType">
         </el-cascader>
         <el-checkbox v-model="param.required" @change="update">必填</el-checkbox>
+        <el-checkbox v-model="param.fixed" @change="update">固定值</el-checkbox>
       </el-col>
       <el-col class="comment">
         <el-input placeholder="备注" v-model="param.comment" @change="lazyUpdate"></el-input>
       </el-col>
       <el-col class="example">
-        <el-input placeholder="example" v-model="example" @change="lazyUpdate"></el-input>
+        <el-input placeholder="固定值或者例子" v-model="example" @change="lazyUpdate"></el-input>
       </el-col>
     </el-row>
   </div>
@@ -82,7 +83,8 @@ export default {
           this.$set(this.param, 'params', [{
             key: null,
             type: 'string',
-            required: true
+            required: true,
+            fixed: false
           }])
         }
         this.$emit('buildObject', this.param)
@@ -99,7 +101,8 @@ export default {
         this.$set(this.param.items, 'params', [{
           key: null,
           type: 'string',
-          required: true
+          required: true,
+          fixed: false
         }])
         this.$emit('buildObject', this.param)
       }
@@ -151,8 +154,8 @@ export default {
 }
 .params-box {
   .config {
-    min-width: 220px;
-    max-width: 220px;
+    min-width: 280px;
+    max-width: 280px;
   }
   .headers .config {
     min-width: 80px;
@@ -161,15 +164,15 @@ export default {
   }
   .example {
     min-width: 145px;
-    max-width: 220px;
+    max-width: 200px;
   }
   .comment {
     margin-right: 20px;
     min-width: 145px;
-    max-width: 240px;
+    max-width: 220px;
   }
   .key {
-    min-width: 100px;
+    max-width: 100px;
   }
   .el-input__inner {
     border: none;
