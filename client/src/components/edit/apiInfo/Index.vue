@@ -1,6 +1,9 @@
 <template>
   <div class="api-info el-col" v-side-bar>
     <el-form>
+      <el-form-item label="接口URL" class="required">
+        <el-input auto-complete="off" v-model="reqUrl" placeholder="/act/index"></el-input>
+      </el-form-item>
       <el-form-item label="接口名称" class="required">
         <el-input auto-complete="off" v-model="name"></el-input>
       </el-form-item>
@@ -87,6 +90,14 @@ export default {
     },
     history () {
       return this.$store.state.api.history
+    },
+    reqUrl: {
+      get () {
+        return this.$store.state.api.reqUrl
+      },
+      set (value) {
+        this.$store.commit('UPDATE_API_PROPS', ['reqUrl', value])
+      }
     },
     name: {
       get () {

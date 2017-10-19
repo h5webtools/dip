@@ -5,7 +5,13 @@ export default (state) => {
   // const regex = new RegExp(/^((ht|f)tps?):\/\/[\w-]+(\.[\w-]+)+([\w\-.,@?^=%&:/~+#]*[\w\-@?^=%&~+#])?$/);
   const api = state.api
   let rs = {}
-  if (isEmpty(api.name)) {
+
+  if (isEmpty(api.reqUrl)) {
+    rs = {
+      success: false,
+      msg: '接口URL不能为空'
+    }
+  } else if (isEmpty(api.name)) {
     rs = {
       success: false,
       msg: '接口名不能为空'
