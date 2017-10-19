@@ -11,8 +11,8 @@
 请求约定分为三类请求参数与一个请求头：
 
 * Body: 提交的JSON或者Form数据，若请求类型选择`GET`，则不显示此参数约定
-* Query: url参数，例如：https://www.dxy.cn?param=hi
-* Path: RESTful风格的url参数，例如：https://www.dxy.cn/:param1/:param2
+* Query: url参数，例如：https://www.tt.cn?param=hi
+* Path: RESTful风格的url参数，例如：https://www.tt.cn/:param1/:param2
 * Header: 请求头的约定
 
 ### 响应约定
