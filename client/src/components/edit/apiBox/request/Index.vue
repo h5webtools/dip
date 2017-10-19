@@ -57,7 +57,7 @@ export default {
       }, {
         label: 'Path',
         name: 'path',
-        tip: 'RESTful风格的url参数，例如 http://www.dxy.cn/:userId'
+        tip: `RESTful风格的url参数，例如 ${window.location.origin}/:userId`
       }]
     }
   },

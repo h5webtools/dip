@@ -3,7 +3,7 @@ var path = require('path')
 
 module.exports = {
   appName: 'DIP',
-  docsUrl: 'http://mock.fe.jyb.com',
+  docsUrl: 'http://fe.doc.jyb.com/book/dip-docs/',
   build: {
     env: require('./prod.env'),
     index: path.resolve(__dirname, '../dist/index.html'),

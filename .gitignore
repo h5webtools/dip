@@ -7,3 +7,4 @@ package-lock.json
 server/appveyor.yml
 server/.travis.yml
 release/
+_book/
