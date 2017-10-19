@@ -158,8 +158,8 @@ export default {
     max-width: 280px;
   }
   .headers .config {
-    min-width: 80px;
-    max-width: 80px;
+    min-width: 140px;
+    max-width: 140px;
     text-align: center;
   }
   .example {
