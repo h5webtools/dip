@@ -6,8 +6,9 @@
         <div class="row-and-col">
           <el-col class="type">类型</el-col>
           <el-col class="required">是否必填</el-col>
+          <el-col class="fixed">固定值</el-col>
           <el-col class="comment">备注</el-col>
-          <el-col class="example">示例</el-col>
+          <el-col class="example">固定值/示例</el-col>
         </div>
       </el-row>
     </div>
@@ -79,7 +80,8 @@ export default {
     max-width: 130px;
     text-align: center;
   }
-  &.required {
+  &.required
+  &.fixed {
     min-width: 100px;
     max-width: 100px;
     text-align: center;

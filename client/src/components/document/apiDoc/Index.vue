@@ -116,7 +116,7 @@ export default {
       return !!this.$route.query.preview
     },
     url () {
-      const mockUrl = `${this.$store.state.serverRoot}/client/${this.api._id}`
+      const mockUrl = `${this.$store.state.serverRoot}/mock/${this.api.group}${this.api.reqUrl || ''}`
       const path = this.api.options.params.path
       if (path.length) {
         const pathUrl = path.filter(p => p.key).map(p => `/:${p.key}`).join('')
