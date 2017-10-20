@@ -38,7 +38,14 @@ module.exports = app => {
       const group = yield this.service.group.getById(groupId)
       const method = this.ctx.method.toLowerCase()
       const query = this.ctx.request.query
-      const body = this.ctx.request.body
+      let body = this.ctx.request.body
+
+      // 支持目前h5项目的PHP接口
+      if (query._mockPostFix) {
+        try {
+          body = JSON.parse(Object.keys(body)[0])
+        } catch (e) {}
+      }
 
       // 根据URL获取记录
       let record = yield this.service.api.findByCond({ group: group._id, 'options.method': method })
@@ -82,7 +89,7 @@ module.exports = app => {
         return
       }
 
-      yield this.handleRequest(record[0])
+      yield this.handleRequest(record[0], { body })
     }
     checkPath (paramsPath, paramsReqUrl, reqUrl) {
       if (!Array.isArray(paramsPath)) {
@@ -161,7 +168,7 @@ module.exports = app => {
       }
       return false
     }
-    * handleRequest (api) {
+    * handleRequest (api, data) {
       if (!api) {
         return
       }
@@ -170,7 +177,7 @@ module.exports = app => {
       }
       const delay = api.options.delay || 0
       yield sleep(delay)
-      this.validateParams(api)
+      this.validateParams(api, data)
       this.ctx.body = this.getResponse(api) || {}
     }
     getResponse (api) {
@@ -228,12 +235,12 @@ module.exports = app => {
       }
       return paramType
     }
-    validateParams (api) {
-      const data = {
+    validateParams (api, customData) {
+      const data = Object.assign({
         query: this.ctx.request.query,
         body: this.ctx.request.body,
         path: this.getPathParams(api)
-      }
+      }, customData)
       const { params, method } = api.options
       for (const name in params) {
         const rule = {}

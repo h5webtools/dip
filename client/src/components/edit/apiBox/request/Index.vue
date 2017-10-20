@@ -49,7 +49,7 @@ export default {
       types: [{
         label: 'Body',
         name: 'body',
-        tip: 'POST、PUT请求时的参数，支持form、json'
+        tip: 'POST、PUT请求时的参数，支持form、json，如果mock失败，可以尝试添加?_mockPostFix=1'
       }, {
         label: 'Query',
         name: 'query',
