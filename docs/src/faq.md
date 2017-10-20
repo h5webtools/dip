@@ -4,6 +4,15 @@
 
 A: method选择`post`，在body部分填写`cmd`，并且勾上`固定值`，在`固定值和例子`填写具体值
 
+**Q: 目前h5活动或者h5产品项目，请求mock接口失败解决办法**
+
+A: 可以尝试带上query参数来修复：`{ mockURL }?_mockPostFix=1`
+
+**Q: 如何使用接口代理转发**
+
+A: 开启后请求mock地址会转发到指定地址，除此外，为便于前端代码控制，也可以在请求Mock URL时，带上query参数来设置：
+转发线上：`{ mockURL }?_mockProxyStatus=1`，转发测试：`{ mockURL }?_mockProxyStatus=2`
+
 **Q: 请求Mock URL出现404 not found。**
 
 A: 请先确认请求协议是否正确。为严格定义接口，系统会严格判断请求协议。若发起请求类型不对，接口会返回404。
