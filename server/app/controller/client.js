@@ -42,8 +42,10 @@ module.exports = app => {
 
       // 支持目前h5项目的PHP接口
       if (query._mockPostFix) {
+        const rawBody = this.ctx.request.rawBody
+
         try {
-          body = JSON.parse(Object.keys(body)[0])
+          body = JSON.parse(rawBody)
         } catch (e) {}
       }
 
