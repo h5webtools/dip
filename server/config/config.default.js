@@ -23,12 +23,12 @@ module.exports = appInfo => {
     // 发送邮件配置
     transporter: {
       appName: 'DIP',
-      host: 'smtp.qq.com',
+      host: 'smtp.exmail.qq.com',
       secure: true,
       port: 465,
       auth: {
-        user: '{{email_address}}',
-        pass: '{{email_password}}'
+        user: 'h5tool@jyblife.com',
+        pass: 'H5tool123456'
       }
     }
   }
