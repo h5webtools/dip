@@ -1,7 +1,7 @@
 <template>
 <div class="login-box">
   <el-form label-position="left" :model="loginForm" ref="loginForm" :rules="loginRules" @keyup.enter.native="validate">
-    <p class="app-name">接口管理平台</p>
+    <p class="app-name">数据接口平台</p>
     <el-form-item prop="email">
       <el-input placeholder="email" v-model="loginForm.email" ></el-input>
     </el-form-item>
