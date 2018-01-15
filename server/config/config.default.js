@@ -4,7 +4,7 @@ module.exports = appInfo => {
       jsonLimit: '500kb' // 不能再大了，再大接口实在太不合理了
     },
     mongoose: {
-      url: 'mongodb://127.0.0.1/api-mock'
+      url: 'mongodb://127.0.0.1/dip'
     },
     // cookie 加密的keys
     keys: `${appInfo.name}_{{cookie_secret_key}}`,
@@ -22,13 +22,13 @@ module.exports = appInfo => {
     },
     // 发送邮件配置
     transporter: {
-      appName: 'DIP',
-      host: 'smtp.exmail.qq.com',
+      appName: '',
+      host: '',
       secure: true,
       port: 465,
       auth: {
-        user: 'h5tool@jyblife.com',
-        pass: 'H5tool123456'
+        user: '',
+        pass: ''
       }
     }
   }
