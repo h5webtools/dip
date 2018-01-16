@@ -12,13 +12,20 @@
         <div class="group-select">
           <el-row type="flex" >
             <el-col :span="24">
-              <el-select placeholder="请选择分组" filterable v-model="group">
+              <!-- <el-select placeholder="请选择分组" filterable v-model="group">
                 <el-option v-for="group in groups"
                            :key="group._id"
                            :label="group.name"
                            :value="group._id">
                 </el-option>
-              </el-select>
+              </el-select> -->
+              <tree-select
+                :treeData="treeData"
+                v-model="treeSelected"
+                placeholder="请选择分组"
+                @error="handleTreeSelectError"
+                @select="handleTreeSelect">
+            </tree-select>
             </el-col>
           </el-row>
         </div>
@@ -56,19 +63,52 @@
 </template>
 
 <script>
+import TreeSelect from '@/components/common/treeSelect/Index'
 import CreateGroup from '@/components/common/CreateGroup'
 import ApiHistory from './ApiHistory'
 export default {
   components: {
     CreateGroup,
-    ApiHistory
+    ApiHistory,
+    TreeSelect
   },
   data () {
     return {
-      showCreateGroup: false
+      showCreateGroup: false,
+      treeSelected: '',
+      treeData: [
+        // {
+        //   label: 'Node1',
+        //   key: '0-0',
+        //   children: [{
+        //     label: 'Child Node1',
+        //     key: '0-0-1',
+        //     children: [{
+        //       label: 'Child Node1',
+        //       key: '0-0-1-1'
+        //     }, {
+        //       label: 'Child Node2',
+        //       key: '0-0-2-1'
+        //     }]
+        //   }, {
+        //     label: 'Child Node2',
+        //     key: '0-0-2'
+        //   }]
+        // }, {
+        //   label: 'Node2',
+        //   key: '0-1'
+        // }
+      ]
     }
   },
   methods: {
+    handleTreeSelect (val) {
+      console.log(val);
+    },
+    handleTreeSelectError (error) {
+      console.log(error.message);
+      // Message.info(error.message);
+    },
     handleClickCreateGroup (groupName) {
       this.$store.dispatch('createGroup', { name: groupName }).then(() => {
         this.showCreateGroup = false
