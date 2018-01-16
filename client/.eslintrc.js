@@ -16,6 +16,8 @@ module.exports = {
   ],
   // add your custom rules here
   'rules': {
+    'semi': 'off',
+    'space-before-function-paren': 'off',
     // 取消promise必须返回error类型
     'prefer-promise-reject-errors': 'off',
     // allow debugger during development
