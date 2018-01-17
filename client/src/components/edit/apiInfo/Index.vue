@@ -20,8 +20,8 @@
                 </el-option>
               </el-select> -->
               <tree-select
-                :treeData="treeData"
-                v-model="treeSelected"
+                :treeData="groups"
+                v-model="group"
                 placeholder="请选择分组"
                 @error="handleTreeSelectError"
                 @select="handleTreeSelect">
@@ -74,31 +74,7 @@ export default {
   },
   data () {
     return {
-      showCreateGroup: false,
-      treeSelected: '',
-      treeData: [
-        // {
-        //   label: 'Node1',
-        //   key: '0-0',
-        //   children: [{
-        //     label: 'Child Node1',
-        //     key: '0-0-1',
-        //     children: [{
-        //       label: 'Child Node1',
-        //       key: '0-0-1-1'
-        //     }, {
-        //       label: 'Child Node2',
-        //       key: '0-0-2-1'
-        //     }]
-        //   }, {
-        //     label: 'Child Node2',
-        //     key: '0-0-2'
-        //   }]
-        // }, {
-        //   label: 'Node2',
-        //   key: '0-1'
-        // }
-      ]
+      showCreateGroup: false
     }
   },
   methods: {
@@ -126,7 +102,7 @@ export default {
   },
   computed: {
     groups () {
-      return this.$store.state.groups
+      return this.$store.getters.treeGroups
     },
     history () {
       return this.$store.state.api.history
