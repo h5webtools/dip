@@ -96,8 +96,9 @@ export default {
   watch: {
     value(val) {
       if (this.isDefault) {
-        this.setDefaultValue();
+        this.setSelected(this.value);
       }
+      this.$emit('change', val);
     },
     treeData(val) {
       if (val) {
@@ -105,9 +106,7 @@ export default {
           [this.treeProps.children]: objArrDeepCopy(val, { visible: true }),
           visible: true
         };
-        if (this.isDefault) {
-          this.setDefaultValue();
-        }
+        this.setSelected(this.value);
       }
     }
   },
@@ -141,16 +140,13 @@ export default {
     handleCaretClick() {
       // 如果显示的是close icon，重置值
       if (this.showCloseIcon) {
-        this.treeSelected = '';
         this.currentNodeId = '';
-        this.$emit('select', '');
+        this.treeSelected = '';
+        this.$emit('input', '');
         this.hideTreeSelect();
       } else {
         this.handleToggleTree();
       }
-    },
-    handleToggleTree() {
-      this.treeVisible = !this.treeVisible;
     },
     handleNodeClick(node, event) {
       if (event) {
@@ -158,13 +154,14 @@ export default {
       }
       this.currentNodeId = node.key;
       this.treeSelected = node[this.treeProps.label];
-      this.$emit('select', node.key);
+      this.$emit('input', node.key);
       this.hideTreeSelect();
     },
-    setDefaultValue() {
-      this.setSelected(this.value);
+    handleToggleTree() {
+      this.treeVisible = !this.treeVisible;
     },
     setSelected(val) {
+      if (!val) return;
       this.findTreeItem(val, this.treeNodes);
       if (!this.currentNodeId) {
         this.setErrorMessage(val);

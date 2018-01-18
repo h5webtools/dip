@@ -25,7 +25,7 @@
                 placeholder="请选择分组"
                 @error="handleTreeSelectError"
                 @select="handleTreeSelect">
-            </tree-select>
+              </tree-select>
             </el-col>
           </el-row>
         </div>
