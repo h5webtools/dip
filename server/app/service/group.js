@@ -55,7 +55,8 @@ module.exports = app => {
       const _group = {
         name: group.name,
         creator: authId,
-        manager: authId
+        manager: authId,
+        parentId: group.group || ''
       }
       return app.model.group(_group).save()
     }

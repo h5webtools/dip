@@ -85,8 +85,8 @@ export default {
       console.log(error.message);
       // Message.info(error.message);
     },
-    handleClickCreateGroup (groupName) {
-      this.$store.dispatch('createGroup', { name: groupName }).then(() => {
+    handleClickCreateGroup (groupInfo) {
+      this.$store.dispatch('createGroup', groupInfo).then(() => {
         this.showCreateGroup = false
       }).catch(e => this.$message.error(e.msg))
     },

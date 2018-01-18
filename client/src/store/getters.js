@@ -5,49 +5,8 @@
 const getters = {
   treeGroups: state => {
     const groups = state.groups;
-    // const groups = [
-    //   {
-    //     _id: 21,
-    //     parentId: 2,
-    //     name: 'n21'
-    //   },
-    //   {
-    //     _id: 222,
-    //     parentId: 11,
-    //     name: 'n222'
-    //   },
-    //   {
-    //     _id: 22,
-    //     parentId: 1,
-    //     name: 'n22'
-    //   },
-    //   {
-    //     _id: 111,
-    //     parentId: 11,
-    //     name: 'n111'
-    //   },
-    //   {
-    //     _id: 1111,
-    //     parentId: 111,
-    //     name: 'n1111'
-    //   },
-    //   {
-    //     _id: 11,
-    //     parentId: 1,
-    //     name: 'n11'
-    //   },
-    //   {
-    //     _id: 1,
-    //     name: 'n1.1'
-    //   },
-    //   {
-    //     _id: 2,
-    //     name: 'n2'
-    //   }
-    // ];
-
     let treeData = [];
-    let posArr = []; // 位置数组
+    let posCollection = {}; // 位置集合
     let child = []; // 子分组
 
     groups.forEach((group) => {
@@ -57,26 +16,26 @@ const getters = {
           label: group.name,
           key: group._id
         });
-        posArr[group._id] = [len - 1];
+        posCollection[group._id] = [len - 1];
       } else {
         child.push(group);
-        posArr[group._id] = [];
+        posCollection[group._id] = [];
       }
     });
 
-    getTreeData(child, treeData, posArr);
+    getTreeData(child, treeData, posCollection);
     return treeData;
   }
 }
 
-function getTreeData(child, treeData, posArr, level = 0) {
+function getTreeData(child, treeData, posCollection, level = 0) {
   // 后面会修改posArr数组的项，所以这里获取一份新的
-  const newPosArr = posArr.slice(0);
+  const newPosCollection = assign(posCollection, {});
   // 等待删除的数据下标
   const spliceDataIndex = [];
   child.forEach((c, i) => {
     // 获取到父分组的位置数组
-    const pos = newPosArr[c.parentId];
+    const pos = newPosCollection[c.parentId];
     if (Array.isArray(pos) && pos.length > 0) {
       // 根据位置数组获取到children
       const childData = getChildren(treeData, pos, level);
@@ -86,7 +45,7 @@ function getTreeData(child, treeData, posArr, level = 0) {
         key: c._id
       });
       // 更新当前项的位置数组
-      posArr[c._id] = posArr[c._id].concat(pos, len - 1);
+      posCollection[c._id] = posCollection[c._id].concat(pos, len - 1);
       spliceDataIndex.push(i);
     }
   });
@@ -95,8 +54,15 @@ function getTreeData(child, treeData, posArr, level = 0) {
   spliceDataIndex.forEach((val, i) => child.splice(val - i, 1));
   // 如果child还有数据，以及level小于8(防止一直执行下去)，说明还有分组没被分好
   if (child.length > 0 && level < 8) {
-    getTreeData(child, treeData, posArr, ++level);
+    getTreeData(child, treeData, posCollection, ++level);
   }
+}
+
+function assign(from, to) {
+  for (let k in from) {
+    to[k] = from[k];
+  }
+  return to;
 }
 
 function getChildren(data, pos, level) {

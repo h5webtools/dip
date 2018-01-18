@@ -161,7 +161,11 @@ export default {
       this.treeVisible = !this.treeVisible;
     },
     setSelected(val) {
-      if (!val) return;
+      if (!val) {
+        this.currentNodeId = '';
+        this.treeSelected = '';
+        return;
+      }
       this.findTreeItem(val, this.treeNodes);
       if (!this.currentNodeId) {
         this.setErrorMessage(val);
@@ -214,6 +218,10 @@ function objArrDeepCopy(source, extendObj) {
     position: relative;
     .el-icon-caret-bottom {
       cursor: pointer;
+      height: 36px;
+      bottom: 0;
+      top: auto;
+
       &.is-reverse {
         transform: rotateZ(180deg);
       }
@@ -283,7 +291,7 @@ function objArrDeepCopy(source, extendObj) {
     border-radius: 2px;
     box-shadow: 0 2px 4px rgba(0,0,0,.12), 0 0 6px rgba(0, 0, 0, .04);
     .el-scrollbar__view {
-      max-height: 400px;
+      max-height: 300px;
     }
     transition: all 0.1s linear;
   }
