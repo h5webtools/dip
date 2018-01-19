@@ -43,7 +43,7 @@ export default {
       this.$emit('manage', this.group)
     },
     groupDelete () {
-      this.$confirm('分组内Api将一同删除，确定删除?', '提示', {
+      this.$confirm('分组内的Api将一同删除，确定删除?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
