@@ -5,17 +5,6 @@
     <el-button size="small" class="unmanaged" @click.native="getUnmanaged">未认领分组</el-button>
   </div>
   <div class="group-table">
-    <!-- <el-table :data="groups" style="width: 100%">
-      <el-table-column prop="name" label="分组名">
-      </el-table-column>
-      <el-table-column prop="createTime" :formatter="timeFormat" width="200" label="创建时间">
-      </el-table-column>
-      <el-table-column width="160" label="操作">
-        <template scope="scope">
-          <control :group="scope.row" :mode="mode" @delete="groupDelete" @manage="manageGroup"></control>
-        </template>
-      </el-table-column>
-    </el-table> -->
     <div class="group-table-head">
       <span class="col-1">分组名</span>
       <span class="col-2">创建时间</span>
