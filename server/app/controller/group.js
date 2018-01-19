@@ -6,6 +6,7 @@ module.exports = app => {
       const { id } = this.ctx.params
       const group = this.ctx.request.body
       delete group._id
+      if (!group.parentId) group.parentId = null
       const rs = yield this.service.group.update(id, group)
       if (rs && rs._id) {
         this.success(rs)

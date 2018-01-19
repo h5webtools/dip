@@ -4,6 +4,13 @@
     <el-form-item label="群名称：">
       <el-input v-model="localGroup.name"></el-input>
     </el-form-item>
+    <el-form-item label="上级分组：">
+      <tree-select
+        v-model="localGroup.parentId"
+        :treeData="groups"
+        placeholder="请选择分组">
+      </tree-select>
+    </el-form-item>
     <el-form-item label="隐私性：">
       <el-radio-group v-model="localGroup.privacy">
         <el-radio :label="0">所有人可见</el-radio>
@@ -36,11 +43,13 @@
 </template>
 
 <script>
+import TreeSelect from '@/components/common/treeSelect/Index'
 import UserSelector from '@/components/common/UserSelector'
 import R from 'ramda'
 export default {
   components: {
-    UserSelector
+    UserSelector,
+    TreeSelect
   },
   props: {
     group: Object,
@@ -61,6 +70,9 @@ export default {
     },
     title () {
       return `${this.localGroup.name}`
+    },
+    groups () {
+      return this.$store.getters.treeGroups
     }
   },
   methods: {

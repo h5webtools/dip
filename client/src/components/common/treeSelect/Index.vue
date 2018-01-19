@@ -75,9 +75,6 @@ export default {
     }
     this.eventHub.$on('node-click', this.handleNodeClick);
   },
-  updated() {
-    this.isDefault = true;
-  },
   computed: {
     hasTreeData() {
       return (
@@ -95,9 +92,7 @@ export default {
   },
   watch: {
     value(val) {
-      if (this.isDefault) {
-        this.setSelected(this.value);
-      }
+      this.setSelected(val);
       this.$emit('change', val);
     },
     treeData(val) {
@@ -125,7 +120,6 @@ export default {
       eventHub: new Vue(),
       isQuering: false,
       query: '',
-      isDefault: true,
       error: {
         message: '',
         data: ''
@@ -149,9 +143,6 @@ export default {
       }
     },
     handleNodeClick(node, event) {
-      if (event) {
-        this.isDefault = false;
-      }
       this.currentNodeId = node.key;
       this.treeSelected = node[this.treeProps.label];
       this.$emit('input', node.key);
