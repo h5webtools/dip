@@ -16,7 +16,14 @@ module.exports = app => {
     }
     * getAll () {
       const resources = yield this.service.group.getReadableGroups()
-      this.ctx.body = { resources }
+      // 过滤父分组已经被删除的分组
+      const groupIds = resources.reduce((obj, g) => {
+        obj[g._id] = g
+        return obj
+      }, {})
+      this.ctx.body = {
+        resources: resources.filter(g => !g.parentId || groupIds[g.parentId])
+      }
       this.ctx.status = 200
     }
     * get () {

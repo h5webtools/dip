@@ -41,7 +41,7 @@ module.exports = app => {
       } else {
         const groups = yield this.service.group.getReadableGroups()
         // 过滤父分组已经被删除的分组
-        const groupIds = groups.reduce((g, obj) => {
+        const groupIds = groups.reduce((obj, g) => {
           obj[g._id] = g
           return obj
         }, {})
