@@ -40,8 +40,13 @@ module.exports = app => {
         }
       } else {
         const groups = yield this.service.group.getReadableGroups()
+        // 过滤父分组已经被删除的分组
+        const groupIds = groups.reduce((g, obj) => {
+          obj[g._id] = g
+          return obj
+        }, {})
         condition.group = {
-          $in: groups.map(g => g._id)
+          $in: groups.filter(g => !g.parentId || groupIds[g.parentId]).map(g => g._id)
         }
       }
       const resources = yield this.service.api.getRichList(condition, page, limit)

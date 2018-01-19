@@ -95,8 +95,8 @@ export default {
         this.$router.replace('/')
       }
     },
-    handleClickCreateGroup (groupName) {
-      this.$store.dispatch('createGroup', { name: groupName }).then(() => {
+    handleClickCreateGroup (groupInfo) {
+      this.$store.dispatch('createGroup', groupInfo).then(() => {
         this.showCreateDialog = false
       }).catch(e => this.$message.error(e.msg))
     },

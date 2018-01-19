@@ -3,6 +3,9 @@
   <div class="mode-switch" :class="mode">
     <el-button size="small" class="managed" @click.native="getGroups">我的分组</el-button>
     <el-button size="small" class="unmanaged" @click.native="getUnmanaged">未认领分组</el-button>
+    <el-tooltip class="item" effect="dark" content="一般为父分组被删除的子分组" placement="top">
+      <el-button size="small" class="unused" @click.native="getUnused">无用分组</el-button>
+    </el-tooltip>
   </div>
   <div class="group-table">
     <div class="group-table-head">
@@ -58,7 +61,11 @@ export default {
   },
   computed: {
     treeGroup () {
-      return groups2Tree(this.groups)
+      const groupTreeData = groups2Tree(this.groups)
+      switch (this.mode) {
+        case 'unused': return groupTreeData.unusedGroup
+        default: return groupTreeData.treeData
+      }
     }
   },
   methods: {
@@ -86,6 +93,12 @@ export default {
     timeFormat (val) {
       return moment(new Date(Number(val))).format('YYYY-MM-DD HH:mm:ss')
     },
+    getUnused() {
+      this.getManageGroup().then(rs => {
+        this.groups = rs.data
+        this.mode = 'unused'
+      })
+    },
     getUnmanaged () {
       this.getUnmanagedGroup().then(rs => {
         this.groups = rs.data
@@ -101,6 +114,7 @@ export default {
     groupDelete (group) {
       const index = R.findIndex(a => a === group)(this.groups)
       this.groups.splice(index, 1)
+      this.$store.dispatch('getGroups')
     },
     manageGroup (group) {
       window.console.log(group)
@@ -111,6 +125,7 @@ export default {
       window.console.log(group)
       const index = R.findIndex(R.propEq('_id', group._id))(this.groups)
       this.$set(this.groups, index, group)
+      this.$store.dispatch('getGroups')
     }
   },
   mounted () {
@@ -123,7 +138,8 @@ export default {
   margin-bottom: 20px;
 }
 .managed .managed,
-.unmanaged .unmanaged {
+.unmanaged .unmanaged,
+.unused .unused {
   color: #20a0ff;
   border-color: #20a0ff;
 }

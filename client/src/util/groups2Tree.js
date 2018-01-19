@@ -22,7 +22,11 @@ function groups2Tree(groups) {
   });
 
   getTreeData(child, treeData, posCollection);
-  return treeData;
+  return {
+    treeData,
+    posCollection,
+    unusedGroup: child.map(g => ({ label: g.name, key: g._id }))
+  };
 }
 
 function getTreeData(child, treeData, posCollection, level = 0) {

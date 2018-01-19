@@ -1,10 +1,10 @@
 <template>
 <div class="api-control">
-  <template v-if="mode === 'managed'">
+  <template v-if="mode === 'managed' || mode === 'unused'">
     <el-button type="text" size="small" @click="groupManage">编辑</el-button>
     <el-button type="text" size="small" @click="groupDelete">删除</el-button>
   </template>
-  <el-button type="text" size="small" @click="groupDoc">文档</el-button>
+  <el-button type="text" size="small" @click="groupDoc" v-if="mode !== 'unused'">文档</el-button>
   <el-button type="text" size="small" @click="groupClaim" v-if="mode === 'unmanaged'">认领</el-button>
 </div>
 </template>
