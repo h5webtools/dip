@@ -28,7 +28,7 @@ module.exports = mongoose => {
       unique: true
     },
     parentId: { // 父级分组ID
-      type: String,
+      type: ObjectId,
       required: false
     },
     level: { // 分组的层级，默认第一级，预留字段，暂时无用。

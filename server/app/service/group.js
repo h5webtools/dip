@@ -22,6 +22,16 @@ module.exports = app => {
           return { status: true }
       }
     }
+    getRelatedGroup (groupId) { // 根据groupId获取子分组，包括自身
+      return app.model.group.find({
+        isDeleted: false,
+        $or: [{
+          _id: groupId
+        }, {
+          parentId: groupId
+        }]
+      }).sort({ modifiedTime: -1, createTime: -1 })
+    }
     getReadableGroups () {
       const authId = this.ctx.authUser._id
       const cond = {
@@ -56,7 +66,7 @@ module.exports = app => {
         name: group.name,
         creator: authId,
         manager: authId,
-        parentId: group.group || ''
+        parentId: group.group || null
       }
       return app.model.group(_group).save()
     }

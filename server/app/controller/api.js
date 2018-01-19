@@ -34,7 +34,10 @@ module.exports = app => {
       }
       // 传了groupId 则选择分组下的api,没有的话，先获取可见的分组，再去读取api
       if (groupId) {
-        condition.group = groupId
+        const groups = yield this.service.group.getRelatedGroup(groupId)
+        condition.group = {
+          $in: groups.map(g => g._id)
+        }
       } else {
         const groups = yield this.service.group.getReadableGroups()
         condition.group = {
