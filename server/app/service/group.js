@@ -22,15 +22,43 @@ module.exports = app => {
           return { status: true }
       }
     }
-    getRelatedGroup (groupId) { // 根据groupId获取子分组，包括自身
-      return app.model.group.find({
-        isDeleted: false,
-        $or: [{
-          _id: groupId
-        }, {
-          parentId: groupId
-        }]
-      }).sort({ modifiedTime: -1, createTime: -1 })
+    * getAllRelatedGroup (groupId) {
+      const groups = yield this.getReadableGroups()
+      const groupsArr = []
+      const current = groups.find(group => group._id.toString() === groupId)
+
+      if (current) {
+        groupsArr.push(current._id)
+        // TODO：待优化，这里数据量大之后会有性能问题
+        this.getChildRelatedGroup(groupId, groups, groupsArr)
+      }
+      return groupsArr
+    }
+    getChildRelatedGroup (groupId, groups, groupsArr) {
+      const groupIds = this.getChildGroup(groupId, groups)
+      if (groupIds.length > 0) {
+        groupsArr.push.apply(groupsArr, groupIds)
+        this.getChildRelatedGroup(groupIds, groups, groupsArr)
+      }
+    }
+    getChildGroup (groupIds, groups = []) {
+      let groupIdsArr = null
+      const groupArr = []
+
+      if (!Array.isArray(groupIds)) {
+        groupIdsArr = [groupIds]
+      } else {
+        groupIdsArr = groupIds
+      }
+
+      groupIdsArr.forEach((groupId) => {
+        groups.forEach((group) => {
+          if (group.parentId && group.parentId.toString() === groupId) {
+            groupArr.push(group._id.toString())
+          }
+        })
+      })
+      return groupArr
     }
     getReadableGroups () {
       const authId = this.ctx.authUser._id
