@@ -151,12 +151,12 @@ export default {
     handleToggleTree() {
       this.treeVisible = !this.treeVisible;
     },
+    resetValue() {
+      this.currentNodeId = '';
+      this.treeSelected = '';
+    },
     setSelected(val) {
-      if (!val) {
-        this.currentNodeId = '';
-        this.treeSelected = '';
-        return;
-      }
+      this.resetValue();
       this.findTreeItem(val, this.treeNodes);
       if (!this.currentNodeId) {
         this.setErrorMessage(val);
