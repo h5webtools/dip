@@ -1,6 +1,9 @@
 module.exports = appInfo => {
   return {
     clientRoot: 'http://mock.fe.jyb.com',
+    mongoose: {
+      url: 'mongodb://127.0.0.1/api-mock'
+    },
     // 发送邮件配置
     transporter: {
       appName: 'DIP',

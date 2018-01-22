@@ -9,13 +9,31 @@ const {
 
 module.exports = app => {
   class Group extends app.Service {
-    isWritable (group, authId) {
-      switch (group.operation) {
+    * getGroupAuth (group, authGroup) {
+      // 如果权限是所有人可以操作，并且有上级分组，向上判断上级分组的权限
+      if (group.operation === OPERATION_ALL && group.parentId) {
+        const parentGroup = yield this.getById(group.parentId)
+        if (parentGroup) {
+          yield this.getGroupAuth(parentGroup, authGroup)
+        } else {
+          authGroup.operation = group.operation
+          authGroup.member = group.member
+        }
+      } else {
+        authGroup.operation = group.operation
+        authGroup.member = group.member
+      }
+    }
+    * isWritable (group, authId) {
+      const authGroup = {}
+      yield this.getGroupAuth(group, authGroup)
+
+      switch (authGroup.operation) {
         case OPERATION_ALL:
           return { status: true }
         case OPERATION_MEMBER:
           return {
-            status: !!group.member.find(m => m.toString() === authId),
+            status: !!authGroup.member.find(m => m.toString() === authId),
             msg: '仅组内成员可操作'
           }
         default:

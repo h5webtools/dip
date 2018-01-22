@@ -56,8 +56,8 @@ module.exports = app => {
       this.ctx.body = { resources, pages: { limit, page, count } }
       this.ctx.status = 200
     }
-    judgeGroupRight (group, authId) {
-      const { status, msg } = this.service.group.isWritable(group, authId)
+    * judgeGroupRight (group, authId) {
+      const { status, msg } = yield this.service.group.isWritable(group, authId)
       if (status) {
         return true
       }
@@ -74,7 +74,7 @@ module.exports = app => {
       const authority = yield this.service.apiAuthority.get(apiId)
       const group = yield this.service.group.getById(groupId)
 
-      this.judgeGroupRight(group, authId)
+      yield this.judgeGroupRight(group, authId)
       this.judgeApiRight(authority, group, authId)
     }
     * modifyApi () {
@@ -171,7 +171,7 @@ module.exports = app => {
 
       const group = yield this.service.group.getById(groupId)
 
-      this.judgeGroupRight(group, this.ctx.authUser._id)
+      yield this.judgeGroupRight(group, this.ctx.authUser._id)
 
       const resources = yield this.service.api.create(R.merge(body, {
         group: groupId
