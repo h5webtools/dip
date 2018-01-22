@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Admin from '@/components/Admin'
 
+const Admini = r => require.ensure([], () => r(require('@/components/admini/Index')), 'admini')
+
 const Manage = r => require.ensure([], () => r(require('@/components/manage/Index')), 'manage')
 const Profile = r => require.ensure([], () => r(require('@/components/profile/Index')), 'manage')
 const ManageGroup = r => require.ensure([], () => r(require('@/components/manage/group/Index')), 'manage')
@@ -41,6 +43,11 @@ const router = new Router({
           path: 'stat',
           name: 'Stat',
           component: Stat
+        },
+        {
+          path: 'admini',
+          name: 'Admini',
+          component: Admini
         },
         {
           path: 'manage',

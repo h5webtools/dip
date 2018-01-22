@@ -23,6 +23,10 @@ module.exports = mongoose => {
       type: Date,
       default: Date.now
     },
+    isAdmin: { // 是否管理员
+      type: Boolean,
+      default: false
+    },
     isDeleted: {
       type: Boolean,
       default: false

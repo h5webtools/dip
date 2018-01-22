@@ -40,13 +40,15 @@ module.exports = app => {
         }
       } else {
         const groups = yield this.service.group.getReadableGroups()
-        // 过滤父分组已经被删除的分组
         const groupIds = groups.reduce((obj, g) => {
           obj[g._id] = g
           return obj
         }, {})
+
+        // 清除无用分组
+        clearUnusedGroup(groupIds)
         condition.group = {
-          $in: groups.filter(g => !g.parentId || groupIds[g.parentId]).map(g => g._id)
+          $in: Object.keys(groupIds)
         }
       }
       const resources = yield this.service.api.getRichList(condition, page, limit)
@@ -207,4 +209,20 @@ module.exports = app => {
     }
   }
   return ApiController
+}
+
+function clearUnusedGroup (groupIds) {
+  const groupIdsArr = Object.keys(groupIds)
+  const prevLen = groupIdsArr.length
+  groupIdsArr.forEach((id) => {
+    const curr = groupIds[id]
+    if (curr.parentId && !groupIds[curr.parentId]) {
+      delete groupIds[id]
+    }
+  })
+
+  const nextLen = Object.keys(groupIds).length
+  if (nextLen !== prevLen) {
+    clearUnusedGroup(groupIds)
+  }
 }
