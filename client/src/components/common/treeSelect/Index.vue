@@ -39,7 +39,7 @@
 <script>
 import Vue from 'vue';
 import treeNode from './TreeNode.vue';
-import Clickoutside from 'element-ui/src/utils/clickoutside';
+import Clickoutside from '@/directive/clickoutside';
 
 export default {
   name: 'tree',
