@@ -128,16 +128,14 @@ export default {
     background-color: #eef1f6;
     border: none;
 
-    & > .el-tree-node {
-      & > .el-tree-node__content {
-        padding-left: 20px !important;
-      }
-    }
-
     .tree-node-doc {
       float: right;
       margin-right: 10px;
       display: none;
+    }
+
+    .el-tree-node__expand-icon {
+      margin-left: 30px;
     }
 
     .el-tree-node__content {
