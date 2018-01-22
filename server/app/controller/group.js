@@ -21,8 +21,9 @@ module.exports = app => {
         obj[g._id] = g
         return obj
       }, {})
+      this.service.group.clearUnusedGroup(groupIds)
       this.ctx.body = {
-        resources: resources.filter(g => !g.parentId || groupIds[g.parentId])
+        resources: Object.keys(groupIds).map(g => groupIds[g])
       }
       this.ctx.status = 200
     }

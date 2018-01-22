@@ -46,7 +46,7 @@ module.exports = app => {
         }, {})
 
         // 清除无用分组
-        clearUnusedGroup(groupIds)
+        this.service.group.clearUnusedGroup(groupIds)
         condition.group = {
           $in: Object.keys(groupIds)
         }
@@ -209,20 +209,4 @@ module.exports = app => {
     }
   }
   return ApiController
-}
-
-function clearUnusedGroup (groupIds) {
-  const groupIdsArr = Object.keys(groupIds)
-  const prevLen = groupIdsArr.length
-  groupIdsArr.forEach((id) => {
-    const curr = groupIds[id]
-    if (curr.parentId && !groupIds[curr.parentId]) {
-      delete groupIds[id]
-    }
-  })
-
-  const nextLen = Object.keys(groupIds).length
-  if (nextLen !== prevLen) {
-    clearUnusedGroup(groupIds)
-  }
 }
