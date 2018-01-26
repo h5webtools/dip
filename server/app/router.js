@@ -53,4 +53,8 @@ module.exports = app => {
   app.put('/server/user/password', 'user.updatePassword')
   app.put('/server/user', 'user.update')
   app.get('/server/user/search', 'user.search')
+
+  // app.get('/auth/user/temp/password', 'user.tempResetPwd')
+  // app.get('/auth/user/temp/update', 'group.tempUpdate')
+  // app.get('/auth/user/temp/apiUpdate', 'group.tempApiUpdate')
 }
