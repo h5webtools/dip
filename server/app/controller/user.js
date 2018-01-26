@@ -77,6 +77,18 @@ module.exports = app => {
       this.service.cache.del(key)
       this.success(true)
     }
+    * tempResetPwd () {
+      const { email, pwd } = this.ctx.query
+      const user = yield this.service.user.getByEmail(email)
+      if (!user) {
+        this.error('此邮箱未注册')
+      }
+      const rs = yield this.service.user.updatePassword(email, pwd)
+      if (!rs) {
+        this.error('修改失败', 500)
+      }
+      this.success(true)
+    }
     * get () {
       const rs = this.service.cookie.getUser()
       if (!rs || !rs._id) {

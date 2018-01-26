@@ -73,6 +73,47 @@ module.exports = app => {
       yield this.service.api.deleteGroupApis(id)
       this.ctx.status = 204
     }
+    * tempUpdate () {
+      const { email, groupid } = this.ctx.query
+      const user = yield this.ctx.service.user.getByEmail(email)
+      if (!user) {
+        this.error('user不存在')
+      }
+      const newGroup = {
+        creator: user._id,
+        manager: user._id
+      }
+      const rs = yield app.model.group.findOneAndUpdate({
+        _id: groupid
+      }, Object.assign(newGroup, { modifiedTime: Date.now() }), { new: true })
+
+      if (rs && rs._id) {
+        this.success(rs)
+      } else {
+        this.error('更新失败')
+      }
+    }
+    * tempApiUpdate () {
+      const { from, to } = this.ctx.query
+      const userFrom = yield this.ctx.service.user.getByEmail(from)
+      const userTo = yield this.ctx.service.user.getByEmail(to)
+      if (!userFrom || !userTo) {
+        this.error('user不存在')
+      }
+      const newParams = {
+        creator: userTo._id,
+        manager: userTo._id
+      }
+      const rs = yield app.model.api.update({
+        creator: userFrom._id
+      }, Object.assign(newParams, { modifiedTime: Date.now() }), { multi: true })
+
+      if (rs) {
+        this.success(rs)
+      } else {
+        this.error('更新失败')
+      }
+    }
   }
   return GroupController
 }
