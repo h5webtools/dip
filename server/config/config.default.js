@@ -4,7 +4,7 @@ module.exports = appInfo => {
       jsonLimit: '500kb' // 不能再大了，再大接口实在太不合理了
     },
     mongoose: {
-      url: 'mongodb://127.0.0.1/dip'
+      url: 'mongodb://127.0.0.1:27019/dip'
     },
     // cookie 加密的keys
     keys: `${appInfo.name}_{{cookie_secret_key}}`,

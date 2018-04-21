@@ -28,10 +28,8 @@ cp -v "$workdir/server/package.json" "$releasedir/server/package.json"
 cp -v "$workdir/server/index.js" "$releasedir/server/index.js"
 cp -v "$workdir/server/app.js" "$releasedir/server/app.js"
 
-cp -v "$workdir/makefile" "$releasedir/makefile"
-
 # release
 echo "entering $releasedir & scp"
 cd $releasedir
 
-scp -P 36000 -r ./ root@172.16.1.10:/data1/fe_www/dip
+scp -r ./ root@172.16.1.118:/data/www/dip
