@@ -2,6 +2,8 @@
 
 接口管理平台，fork [api-mocker](https://github.com/DXY-F2E/api-mocker)
 
+在开源版本基础上，支持了接口定义固定值（适配cmd），多级分组
+
 ## 系统功能
 
 - 接口约定
