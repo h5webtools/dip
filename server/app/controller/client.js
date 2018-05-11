@@ -87,7 +87,7 @@ module.exports = app => {
 
       // 如果找到多条记录
       if (record.length > 1) {
-        this.fail('找到多条记录')
+        this.fail('找到多条记录', record.map(r => r.name))
         return
       }
 

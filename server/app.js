@@ -4,10 +4,11 @@ module.exports = app => {
       this.ctx.status = 200
       this.ctx.body = data
     }
-    fail (msg) {
+    fail (msg, data = {}) {
       this.ctx.body = {
         success: false,
-        msg
+        msg,
+        data
       }
     }
     error (data, code = 403) {
