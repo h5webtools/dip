@@ -32,4 +32,4 @@ cp -v "$workdir/server/app.js" "$releasedir/server/app.js"
 echo "entering $releasedir & scp"
 cd $releasedir
 
-scp -r ./ root@172.16.1.118:/data/www/dip
+scp -P 56000 -r ./ root@172.16.1.118:/data/www/dip
