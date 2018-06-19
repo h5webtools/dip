@@ -34,6 +34,8 @@ module.exports = mongoose => {
     },
     reqUrl: String,
     prodUrl: String,
+    sitUrl: String,
+    uatUrl: String,
     devUrl: String,
     options: {
       method: String,

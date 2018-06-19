@@ -22,11 +22,19 @@
           <p class="prod code">{{url}}</p>
         </div>
         <div v-if="api.devUrl">
-          <label>测试地址：</label>
+          <label><code>Dev</code>地址：</label>
           <p class="prod code">{{api.devUrl}}</p>
         </div>
+        <div v-if="api.sitUrl">
+          <label><code>Sit</code>地址：</label>
+          <p class="prod code">{{api.sitUrl}}</p>
+        </div>
+        <div v-if="api.uatUrl">
+          <label><code>Uat</code>地址：</label>
+          <p class="prod code">{{api.uatUrl}}</p>
+        </div>
         <div v-if="api.prodUrl">
-          <label>线上地址：</label>
+          <label><code>Prod</code>地址：</label>
           <p class="prod code">{{api.prodUrl}}</p>
         </div>
       </div>

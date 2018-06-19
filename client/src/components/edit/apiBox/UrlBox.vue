@@ -63,7 +63,7 @@ export default {
       saveToken: false,
       isShowDialog: false,
       testMode: 'mock',
-      testModes: ['mock', 'prod', 'dev']
+      testModes: ['mock', 'dev', 'sit', 'uat', 'prod']
     }
   },
   methods: {
@@ -160,6 +160,12 @@ export default {
     },
     devUrl () {
       return this.api.devUrl
+    },
+    sitUrl () {
+      return this.api.sitUrl
+    },
+    uatUrl () {
+      return this.api.uatUrl
     },
     url () {
       if (this.mode === 'edit') {

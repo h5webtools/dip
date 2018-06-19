@@ -160,12 +160,20 @@ module.exports = app => {
     }
     * handleProxy (api) { // 如果url中带有_mockProxyStatus此参数，则开启代理转发
       const { _mockProxyStatus } = this.ctx.request.query
-      if (api.options.proxy.mode === 1 || _mockProxyStatus === '1') { // 代理转发线上
+      if (api.options.proxy.mode === 1 || _mockProxyStatus === '1') { // 代理转发prod
         yield this.proxy(api.prodUrl, api.options.method)
         return true
       }
-      if (api.options.proxy.mode === 2 || _mockProxyStatus === '2') { // 代理转发测试
+      if (api.options.proxy.mode === 2 || _mockProxyStatus === '2') { // 代理转发dev
         yield this.proxy(api.devUrl, api.options.method)
+        return true
+      }
+      if (api.options.proxy.mode === 3 || _mockProxyStatus === '3') { // 代理转发sit
+        yield this.proxy(api.sitUrl, api.options.method)
+        return true
+      }
+      if (api.options.proxy.mode === 4 || _mockProxyStatus === '4') { // 代理转发uat
+        yield this.proxy(api.uatUrl, api.options.method)
         return true
       }
       return false

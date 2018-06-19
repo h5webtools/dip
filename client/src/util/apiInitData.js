@@ -3,6 +3,8 @@ function initData () {
   return {
     prodUrl: null,
     devUrl: null,
+    sitUrl: null,
+    uatUrl: null,
     reqUrl: null,
     name: '',
     group: '',

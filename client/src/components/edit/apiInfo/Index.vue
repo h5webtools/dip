@@ -23,10 +23,16 @@
           </el-row>
         </div>
       </el-form-item>
-      <el-form-item label="测试地址">
+      <el-form-item label="dev地址">
         <el-input auto-complete="off" v-model="devUrl" placeholder="请填写绝对路径"></el-input>
       </el-form-item>
-      <el-form-item label="线上地址">
+      <el-form-item label="sit地址">
+        <el-input auto-complete="off" v-model="sitUrl" placeholder="请填写绝对路径"></el-input>
+      </el-form-item>
+      <el-form-item label="uat地址">
+        <el-input auto-complete="off" v-model="uatUrl" placeholder="请填写绝对路径"></el-input>
+      </el-form-item>
+      <el-form-item label="prod地址">
         <el-input auto-complete="off" v-model="prodUrl" placeholder="请填写绝对路径"></el-input>
       </el-form-item>
       <el-form-item label="代理转发">
@@ -34,14 +40,18 @@
           <span class="mocker-tip">?</span>
           <div slot="content">
             <p>开启后请求mock地址会转发到指定地址，除此外，为便于前端代码控制，也可以在请求Mock URL时，带上query参数来设置：</p>
-            <p>转发线上：{ mockURL }?_mockProxyStatus=1</p>
-            <p>转发测试：{ mockURL }?_mockProxyStatus=2</p>
+            <p>转发Prod：{ mockURL }?_mockProxyStatus=1</p>
+            <p>转发Dev：{ mockURL }?_mockProxyStatus=2</p>
+            <p>转发Sit：{ mockURL }?_mockProxyStatus=3</p>
+            <p>转发Uat：{ mockURL }?_mockProxyStatus=4</p>
           </div>
         </el-tooltip>
         <el-radio-group v-model="proxyMode">
           <el-radio :label="0">不转发</el-radio>
-          <el-radio :label="1">转发线上</el-radio>
-          <el-radio :label="2">转发测试</el-radio>
+          <el-radio :label="1">转发Prod</el-radio>
+          <el-radio :label="2">转发Dev</el-radio>
+          <el-radio :label="3">转发Sit</el-radio>
+          <el-radio :label="4">转发Uat</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="历史记录" class="history-item" v-if="history && history.records.length">
@@ -131,6 +141,22 @@ export default {
       },
       set (value) {
         this.$store.commit('UPDATE_API_PROPS', ['devUrl', value])
+      }
+    },
+    sitUrl: {
+      get () {
+        return this.$store.state.api.sitUrl
+      },
+      set (value) {
+        this.$store.commit('UPDATE_API_PROPS', ['sitUrl', value])
+      }
+    },
+    uatUrl: {
+      get () {
+        return this.$store.state.api.uatUrl
+      },
+      set (value) {
+        this.$store.commit('UPDATE_API_PROPS', ['uatUrl', value])
       }
     },
     proxyMode: {
