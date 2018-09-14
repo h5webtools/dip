@@ -67,7 +67,7 @@ export default {
 <style>
 .api-box {
   padding: 20px;
-  min-width: 688px;
+  width: 100%;
 }
 .result-tabs.el-tabs {
   display: inline-block;
