@@ -7,5 +7,5 @@ require('egg').startCluster({
   // cert: '{{crt_file}}',
   baseDir: __dirname,
   workers: 4,
-  port: process.env.PORT || 7066 // default to 7001
+  port: process.env.PORT || 7166 // default to 7001
 })

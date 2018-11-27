@@ -18,6 +18,12 @@ mkdir "$releasedir"
 mkdir "$releasedir/client"
 mkdir "$releasedir/server"
 
+# web build:dist
+# echo "buildweb"
+# cd "$workdir/client"
+# npm run build
+# cd ".."
+
 # copy project files
 cp -vr "$workdir/client/dist" "$releasedir/client/dist"
 cp -vr "$workdir/server/app" "$releasedir/server/app"
@@ -32,4 +38,4 @@ cp -v "$workdir/server/app.js" "$releasedir/server/app.js"
 echo "entering $releasedir & scp"
 cd $releasedir
 
-scp -P 56000 -r ./ root@172.16.1.118:/data/www/dip
+scp -P 56000 -r ./ root@172.16.1.118:/data/www/dipyunjia

@@ -23,7 +23,8 @@ module.exports = {
     // Set to `true` or `false` to always turn it on or off
     bundleAnalyzerReport: process.env.npm_config_report,
     // 服务端接口的根路径
-    serverRoot: 'mock.fe.jyb.com/mock-api'
+    // serverRoot: 'mock.fe.jyb.com/mock-api'
+    serverRoot: 'mock-yunjia.jyb.com/mock-api'
   },
   dev: {
     env: require('./dev.env'),

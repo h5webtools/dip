@@ -1,8 +1,9 @@
 module.exports = appInfo => {
   return {
-    clientRoot: 'http://mock.fe.jyb.com',
+    clientRoot: 'http://mock-yunjia.jyb.com',
     mongoose: {
-      url: 'mongodb://dip:dip123456@127.0.0.1:27019/dip'
+      // url: 'mongodb://127.0.0.1:27017/dipyunjia'
+      url: 'mongodb://dipyunjia:dipyunjia123456@127.0.0.1:27019/dipyunjia'
     },
     // 发送邮件配置
     transporter: {
